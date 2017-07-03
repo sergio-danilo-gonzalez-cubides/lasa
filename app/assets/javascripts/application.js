@@ -12,5 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//= require jquery.remotipart
+//= require dataTables/jquery.dataTables.js
 //= require_tree .
