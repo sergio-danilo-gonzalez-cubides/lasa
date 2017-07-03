@@ -50,6 +50,8 @@ group :development do
   gem 'spring'
 end
 
+gem 'puma'
+
 gem 'font-awesome-rails'
 gem 'devise', '~> 4.2'
 
@@ -66,5 +68,5 @@ gem 'paperclip-dropbox', '~> 1.3'
 
 gem 'jquery-datatables-rails'
 
-gem 'puma'
+
 
