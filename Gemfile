@@ -63,4 +63,3 @@ gem 'jquery-datatables-rails'
 
 gem 'puma'
 
-gem 'rails_12factor', group: :production
