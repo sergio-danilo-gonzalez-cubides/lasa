@@ -27,3 +27,186 @@
 <br>
 
 <%= link_to 'New Place', new_place_path %>
+
+
+<style>
+
+
+    .form-s  div[class="coln"] {
+        border: 1px solid white;
+        background: #f5f5f5;
+        text-align: center;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    .col-s {
+        border: 1px solid white;
+        background: #f5f5f5;
+        text-align: center;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+
+    .form-s{
+        border: 17px solid #00a0df;
+        -webkit-border-radius: 16px 16px;  /* Safari  */
+        -moz-border-radius: 16px 16px;     /* Firefox */
+    }
+
+    .titulo{
+        color: #f5f5f5;
+    }
+
+    .subtitulo{
+        color: #f5f5f5;
+    }
+</style>
+
+
+<br><br><br>
+
+
+
+<div class="container form-s">
+
+  <!-- Bootstrap Grid -->
+
+  <div class="row">
+    <div class="col-sm-12 titulo col-s" style="background-color: #00a0df">LUGARES Y CODIGOS DE DIVISION POLITICA</div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-8 titulo col-s" style="background-color: #00a0df"></div>
+    <div class="col-sm-4 titulo col-s" style="background-color: #00a0df">CODIGO DANE</div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-3 titulo col-s" style="background-color: #00a0df">PAIS</div>
+
+    <div class="col-sm-5 col-s" >
+
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+        <select class="form-control" id="lista_pais" name="place[Place_id]">
+          <option value="">Seleccione Codigo</option>
+          <% @places.each do |place| %>
+              <% if place.place_type==1 %>
+                   <option value="<%= place.id %>" > <%= place.name %> </option>
+              <% end %>
+          <% end %>
+
+        </select>
+      </div>
+
+    </div>
+
+    <div class="col-sm-4 col-s" id="codigo_pais"></div>
+
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-3 titulo col-s" style="background-color: #00a0df">DEPARTAMENTO</div>
+
+    <div class="col-sm-5 col-s" >
+
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+        <select class="form-control" id="lista_departamentos" name="place[Place_id]">
+          <option value="">Seleccione Departamento</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="col-sm-4 col-s" id="codigo_departamento"></div>
+
+  </div>
+
+</div>
+
+
+<br>
+
+<div class="container form-s" >
+
+  <!-- Bootstrap Grid -->
+
+  <div class="row">
+    <div class="col-sm-6 titulo col-s" style="background-color: #00a0df">MUNICIPIO</div>
+    <div class="col-sm-6 titulo col-s" style="background-color: #00a0df">CODIGO DANE</div>
+  </div>
+
+
+  <div id="listado_municipios"></div>
+
+
+</div>
+
+
+
+
+
+<br><br><br><br>
+
+
+
+<script>
+    $( document ).on("change",$('#lista_pais').selector,ajax_pais);
+    function ajax_pais () {
+        var id = $(this).val();
+        $.ajax({
+            data: {'id': id},
+            url: '<%= paises_path %>',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                var html = "";
+                var code = data[0].codigo.code_dane;
+
+                $('#codigo_pais').html(code);
+                for (var i = 0; i < data[0].departamento.length; i++) {
+                    html += '<option value="' + data[0].departamento[i].id   + '">' + data[0].departamento[i].name + '</option>';
+                }
+                $('#lista_departamentos').html("");
+                $('#lista_departamentos').html('<option value="">Seleccione Departamento</option>' + html);
+
+            }
+        });
+    }
+
+
+    $( document ).on("change",$('#lista_departamentos').selector,ajax_departamentos);
+    function ajax_departamentos () {
+        var id = $(this).val();
+        $.ajax({
+            data: {'id': id},
+            url: '<%= departamentos_path %>',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                var html = "";
+                var code = data[0].codigo.code_dane;
+                $('#codigo_departamento').html(code);
+
+                for (var i = 0; i < data[0].municipio.length; i++) {
+
+                    html += '<div class="row"><div class="col-sm-6 col-s" id="nombre_municipio"> '+data[0].municipio[i].name+'</div><div class="col-sm-6 col-s" id="codigo_municipio"> '+data[0].municipio[i].code_dane+' </div></div>';
+                }
+
+
+                $('#listado_municipios').html("").html(html);
+
+
+
+
+            }
+        });
+    }
+</script>
+
+
+
