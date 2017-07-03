@@ -62,3 +62,5 @@ gem 'paperclip-dropbox', '~> 1.3'
 gem 'jquery-datatables-rails'
 
 gem 'puma'
+
+gem 'rails_12factor', group: :production
