@@ -50,23 +50,5 @@ group :development do
   gem 'spring'
 end
 
-gem 'puma'
-
-gem 'font-awesome-rails'
-gem 'devise', '~> 4.2'
-
-
-#gem 'materialize-sass'
-#gem 'bootstrap-material-design'
-
-#gem mejorar AJAX rails -> subir archivos
-gem 'remotipart', '~> 1.2'
-
-gem "paperclip", "~> 4.3"
-
-gem 'paperclip-dropbox', '~> 1.3'
-
-gem 'jquery-datatables-rails'
-
 
 
